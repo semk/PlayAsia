@@ -1,0 +1,37 @@
+About Play-Asia
+===============
+Play-Asia is an online retailer for entertainment products from Asia. The website sells import games, DVDs, music, CDs, gadgets, groceries, books, gaming console accessories, cables and toys. Play-Asia is based in Hong Kong, and caters to the Hong Kong and Asia-Pacific region, but also offers most of the products to international buyers.
+
+Building Python Api
+===================
+python setup.py build
+sudo python setup.py install
+
+Using the Api
+=============
+
+from playasia import PlayAsia
+
+p = PlayAsia(api_key='YOUR-PLAYASIA-API-KEY', user_id='YOUR_ID')
+# testing the api. Should return 1
+result = p.test(quick=1)
+result = p.info(quick=0, pax='PAX0003120605', mask='pnl', fx='INR')
+result = p.paxfrombarcode(quick=0, bc='BLAS-50230')
+result = p.paxfrommcode(quick=0, code='BLAS-50230')
+
+For reference go to http://foobarnbaz.com/lab/playasia
+
+Terms of Use
+============
+
+The Play-Asia.com API is a set of functions that allow you to retrieve data programmatically. Usage of the API is prohibited where you or your associates (in the loosest possible meaning) at any time
+
+* act in competition to Play-Asia
+* act against Play-Asia's interest
+* let any third party gain knowledge of information retrieved through this API, other than in processed form*
+
+On request by Play-Asia, you will destroy all stored data you have retrieved through this API. Play-Asia reserves the right to withdraw permission of usage of any user without explanation or warning. Everything contained herein is confidential and you agree to give best efforts to keep confidentiality of any aspect of the API and this agreement. 
+
+(*) Data retrieved through this API may not be accessible to anyone in raw form (as-is). Where more information than the price and availability of items are displayed, you agree to put a clearly visible notice of the source of data. (ex: Data-Feed: www.play-asia.com/paOS-00-3-api.html) Where product descriptions are displayed you agree to display a copyright notice. (ex: "Portions copyright © Play-Asia.com"). 
+
+In order to use the API, you have to agree to above terms.
