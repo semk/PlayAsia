@@ -103,49 +103,28 @@ class PlayAsia(object):
         xml, kwds = self._validate_keys(kwds, 'test')
         query = self._build_query(kwds)
         result = self._fetch_result(query, xml)
-        if xml:
-            return result.content.item
-        else:
-            return result
+        return result
 
     def info(self, **kwds):
         # pass the basic argument validation
         xml, kwds = self._validate_keys(kwds, 'info')
         query = self._build_query(kwds)
         result = self._fetch_result(query, xml)
-        if xml:
-            try:
-                return result.content.item
-            except:
-                return result.status
-        else:
-            return result
+        return result
 
     def paxfrombarcode(self, **kwds):
         # pass the basic argument validation
         xml, kwds = self._validate_keys(kwds, 'paxfrombarcode')
         query = self._build_query(kwds)
         result = self._fetch_result(query, xml)
-        if xml:
-            try:
-                return result.content.item
-            except:
-                return result.status
-        else:
-            return result
+        return result
 
     def paxfrommcode(self, **kwds):
         # pass the basic argument validation
         xml, kwds = self._validate_keys(kwds, 'paxfrommcode')
         query = self._build_query(kwds)
         result = self._fetch_result(query, xml)
-        if xml:
-            try:
-                return result.content.item
-            except:
-                return result.status
-        else:
-            return result
+        return result
 
     def listing(self, **kwds):
         #TODO: listing api
@@ -155,12 +134,52 @@ class PlayAsia(object):
 
 if __name__ == '__main__':
     p = PlayAsia()
-    print p.test(quick=1)
+    # using test
+    result = p.test(quick=0)
+    if not int(result.status.error):
+        print result.status.query
+        print result.content.test
+    else:
+        print result.status.errorstring
+
     result = p.info(quick=0, pax='PAX0003120605', mask='pnl', fx='INR')
-    print result
-    result = p.paxfrombarcode(quick=0, bc='BLAS-50230')
-    print result
+    if not int(result.status.error):
+        print result.status.query
+        print result.status.pax
+        print result.status.mask
+        print result.status.fx
+        print result.status.items
+        for item in result.content.item:
+            print item.pax
+            print item.price
+            print item.fxprice
+            print item.name
+            print item.url
+    else:
+        print result.status.errorstring
+
+    result = p.paxfrombarcode(quick=0, bc='4974365910211')
+    if not int(result.status.error):
+        print result.status.query
+        print result.status.items
+        for item in result.content.item:
+            print item.pax
+            print item.bc
+            print item.name
+    else:
+        print result.status.errorstring
+
     result = p.paxfrommcode(quick=0, code='BLAS-50230')
-    print result
+    if not int(result.status.error):
+        print result.status.query
+        print result.status.bc
+        print result.status.items
+        for item in result.content.item:
+            print item.pax
+            print item.code
+            print item.name
+    else:
+        print result.status.errorstring
+
     #result = p.listing(quick=0, mask='pnl')
     #print result
